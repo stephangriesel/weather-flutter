@@ -39,7 +39,7 @@ class _WeatherPageState extends State<WeatherPage> {
     _fetchWeather();
   }
 
-  String getWeatherAnimation(String? mainCondition){
+  String getWeatherAnimation(String? mainCondition) {
     if (mainCondition == null) return 'assets/sunny.json';
     switch (mainCondition) {
       case 'clouds':
@@ -67,24 +67,33 @@ class _WeatherPageState extends State<WeatherPage> {
         return 'assets/sunny.json';
       default:
         return 'assets/sunny.json';
-      
     }
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[600],
-      body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(_weather?.cityName ?? "loading city name..."),
-          LottieBuilder.asset(getWeatherAnimation(_weather?.mainCondition)),
-          Text("${_weather?.temperature.round()}°C"),
-          Text(_weather?.mainCondition ?? "")
-        ],
+    return Theme(
+      data: ThemeData(
+        primaryColor: Colors.blue,
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(fontSize: 40.0, color: Color.fromARGB(255, 209, 209, 209)),
+          bodyMedium: TextStyle(fontSize: 40.0, color: Color.fromARGB(255, 255, 255, 255)),
+          titleLarge: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
+        ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.blueAccent).copyWith(background: const Color.fromARGB(255, 82, 81, 81)),
       ),
-    ));
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(_weather?.cityName ?? "loading city name..."),
+              LottieBuilder.asset(getWeatherAnimation(_weather?.mainCondition)),
+              Text("${_weather?.temperature.round()}°C"),
+              Text(_weather?.mainCondition ?? ""),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
